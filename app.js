@@ -1,3 +1,4 @@
+
 const $ = id => document.getElementById(id);
 const salt = "060602";
 
