@@ -1,7 +1,3 @@
-
-import crypto from 'crypto';
-
-
 const $ = id => document.getElementById(id);
 
 function loadListContent(){
@@ -26,7 +22,7 @@ function validateLogin(e){
     const username = $("username").value;
     const password = $("password").value;
     
-    hash = crypto.createHash('sha2').update(password).digest('hex');
+    hash = password.split('').reduce((prevHash, currVal) => (((prevHash << 5) - prevHash) + currVal.charCodeAt(0))|0, 0);
     console.log(hash); 
 
     if (username == "u" && hash == "lol"){
