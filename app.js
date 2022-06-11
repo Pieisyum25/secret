@@ -25,7 +25,7 @@ function validateLogin(e){
     
     const hash = (password + salt).split('').reduce((prevHash, currVal) => (((prevHash << 5) - prevHash) + currVal.charCodeAt(0))|0, 0);
 
-    if (username == "u" && hash == 238574984){
+    if (username == "u" && hash == -238574984){
 
         // Decrypt codes:
         const header = $("list-header");
