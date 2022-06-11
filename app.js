@@ -1,21 +1,31 @@
 
 const $ = id => document.getElementById(id);
 const salt = "060602";
+let days = 666;
 let placeholder = "...";
 
 function loadListContent(){
+    // Calculate days:
+    const prev = new Date("05/30/2020");
+    const curr = new Date();
+    days = Math.floor((curr.getTime() - prev.getTime()) / (1000 * 3600 * 24));
+
+    // Process json:
     fetch("https://pieisyum25.github.io/secret/content.json")
     .then(function (response) {
         return response.json();
     })
     .then(function (data) {
         $("list-header").innerHTML = data["title"];
-        data["list"].forEach(item => {
+        const content = $("list-content");
+        const list = data["list"];
+        for (let i = 0; i < list.length; i++){
+            if (i >= days) break;
             const listItem = document.createElement("li");
-            listItem.innerHTML = item;
+            listItem.innerHTML = list[i];
             listItem.classList.add("list-item");
-            $("list-content").appendChild(listItem);
-        });
+            content.appendChild(listItem);
+        }
         placeholder = data["placeholder"];
     })
 }
@@ -39,11 +49,6 @@ function validateLogin(e){
             const item = content.children[i];
             item.innerHTML = decryptCode(item.innerHTML, password);
         }
-
-        // Calculate days:
-        const prev = new Date("05/30/2020");
-        const curr = new Date();
-        const days = Math.floor((curr.getTime() - prev.getTime()) / (1000 * 3600 * 24));
 
         // Apply number of days to data:
         header.innerHTML = header.innerHTML.replace("%d", days.toString());
