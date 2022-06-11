@@ -35,6 +35,12 @@ function validateLogin(e){
         content.children.forEach(item => {
             item.value = decryptCode(item.value);
         });
+
+        // Calculate days:
+        const prev = new Date("06/30/2020");
+        const curr = new Date.now();
+        const days = Math.floor((curr.getTime() - prev.getTime()) / (1000 * 3600 * 24));
+        header.value = header.value.replace("%d", str(days));
         
         // Display list:
         $("login").hidden = true;
