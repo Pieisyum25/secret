@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Secret</title>
+        <meta charset="UTF-8">
+        <script type="module" src="app.js"></script>
+    </head>
+
+    <body onload="loadListContent()">
+        <div id="login">
+            <h1 id="login-header">USER LOGIN</h1>
+
+            <form id="login-form" onsubmit="validateLogin(event)">
+
+                <p id="login-error"></p>
+                
+                <h3>Username:</h3>
+                <input type="text" name="username" id="username" required />
+                
+                <h3>Password:</h3>
+                <input type="password" name="password" id="password" required />
+
+                <button type="submit" id="login-button">LOGIN</button>
+            </form>
+        </div>
+
+        <div id="list" hidden>
+            <h1 id="list-header"></h1>
+            <ol id="list-content"></ol>
+        </div>
+    </body>
+
+</html>
