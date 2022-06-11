@@ -1,6 +1,7 @@
 
 const $ = id => document.getElementById(id);
 const salt = "060602";
+let placeholder = "...";
 
 function loadListContent(){
     fetch("https://pieisyum25.github.io/secret/content.json")
@@ -8,13 +9,14 @@ function loadListContent(){
         return response.json();
     })
     .then(function (data) {
-        $("list-header").value = data["title"];
+        $("list-header").innerHTML = data["title"];
         data["list"].forEach(item => {
             const listItem = document.createElement("li");
-            listItem.value = item;
+            listItem.innerHTML = item;
             listItem.classList.add("list-item");
             $("list-content").appendChild(listItem);
         });
+        placeholder = data["placeholder"];
     })
 }
 
@@ -23,38 +25,48 @@ function validateLogin(e){
     
     const username = $("username").value;
     const password = $("password").value;
-    
-    const hash = (password + salt).split('').reduce((prevHash, currVal) => (((prevHash << 5) - prevHash) + currVal.charCodeAt(0))|0, 0);
 
-    if (username == "u" && hash == -238574984){
+    // console.log(createHash(username));
+    // console.log(createHash(password));
+
+    if (createHash(username) == 843062404 &&  createHash(password) == 162751532){
 
         // Decrypt codes:
         const header = $("list-header");
         const content = $("list-content");
-        header.value = decryptCode(header.value, password);
-        content.childNodes.forEach(item => {
-            item.value = decryptCode(item.value, password);
-        });
+        header.innerHTML = decryptCode(header.innerHTML, password);
+        for (let i = 0; i < content.children.length; i++){
+            const item = content.children[i];
+            item.innerHTML = decryptCode(item.innerHTML, password);
+        }
 
         // Calculate days:
-        const prev = new Date("06/30/2020");
-        const curr = new Date.now();
+        const prev = new Date("05/30/2020");
+        const curr = new Date();
         const days = Math.floor((curr.getTime() - prev.getTime()) / (1000 * 3600 * 24));
 
         // Apply number of days to data:
-        header.value = header.value.replace("%d", str(days));
+        header.innerHTML = header.innerHTML.replace("%d", days.toString());
         const missingItems = days - content.children.length;
+        const defaultText = decryptCode(placeholder, password);
         for (let i = 0; i < missingItems; i++){
             const item = document.createElement("li");
-            item.value = "..."
+            item.innerHTML = defaultText;
             item.classList.add("list-item");
-            content.appendChild(listItem);
+            content.appendChild(item);
         }
         
         // Display list:
         $("login").hidden = true;
         $("list").hidden = false;
+
+    } else {
+        $("login-error").textContent = "Username or Password is incorrect."
     }
+}
+
+function createHash(text){
+    return (text + salt).split('').reduce((prevHash, currVal) => (((prevHash << 5) - prevHash) + currVal.charCodeAt(0))|0, 0);
 }
 
 function decryptCode(code, passcode){
@@ -62,7 +74,7 @@ function decryptCode(code, passcode){
     const passLen = passcode.length;
     const charCodes = code.split(",");
     
-    for(let i = 0  ; i < charCodes.length ; i++) {
+    for(let i = 0; i < charCodes.length; i++) {
         const passOffset = i % passLen ;
         const calAscii = (charCodes[i] - passcode.charCodeAt(passOffset));
         result += String.fromCharCode(calAscii);
