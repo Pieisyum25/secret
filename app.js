@@ -1,7 +1,7 @@
 const $ = id => document.getElementById(id);
 
 function loadListContent(){
-    fetch("content.json")
+    fetch("https://pieisyum25.github.io/secret/content.json")
     .then(function (response) {
         return response.json();
     })
