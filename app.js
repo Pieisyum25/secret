@@ -1,4 +1,5 @@
 const $ = id => document.getElementById(id);
+const salt = "060602";
 
 
 function loadListContent(){
@@ -23,10 +24,10 @@ function validateLogin(e){
     const username = $("username").value;
     const password = $("password").value;
     
-    hash = password.split('').reduce((prevHash, currVal) => (((prevHash << 5) - prevHash) + currVal.charCodeAt(0))|0, 0);
-    console.log(hash); 
+    const hash = (password + salt).split('').reduce((prevHash, currVal) => (((prevHash << 5) - prevHash) + currVal.charCodeAt(0))|0, 0);
+    console.log(hash);
 
-    if (username == "u" && hash == "lol"){
+    if (username == "u"){
 
         // Decrypt codes:
         const header = $("list-header");
