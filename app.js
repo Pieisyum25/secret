@@ -24,15 +24,14 @@ function validateLogin(e){
     const password = $("password").value;
     
     const hash = (password + salt).split('').reduce((prevHash, currVal) => (((prevHash << 5) - prevHash) + currVal.charCodeAt(0))|0, 0);
-    console.log(hash);
 
-    if (username == "u"){
+    if (username == "u" && hash == 238574984){
 
         // Decrypt codes:
         const header = $("list-header");
         const content = $("list-content");
         header.value = decryptCode(header.value, password);
-        content.children.forEach(item => {
+        content.childNodes.forEach(item => {
             item.value = decryptCode(item.value);
         });
 
@@ -40,7 +39,16 @@ function validateLogin(e){
         const prev = new Date("06/30/2020");
         const curr = new Date.now();
         const days = Math.floor((curr.getTime() - prev.getTime()) / (1000 * 3600 * 24));
+
+        // Apply number of days to data:
         header.value = header.value.replace("%d", str(days));
+        const missingItems = days - content.children.length;
+        for (let i = 0; i < missingItems; i++){
+            const item = document.createElement("li");
+            item.value = "..."
+            item.classList.add("list-item");
+            content.appendChild(listItem);
+        }
         
         // Display list:
         $("login").hidden = true;
