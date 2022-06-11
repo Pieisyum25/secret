@@ -33,7 +33,7 @@ function validateLogin(e){
         const content = $("list-content");
         header.value = decryptCode(header.value, password);
         content.childNodes.forEach(item => {
-            item.value = decryptCode(item.value);
+            item.value = decryptCode(item.value, password);
         });
 
         // Calculate days:
