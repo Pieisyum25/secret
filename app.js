@@ -1,7 +1,6 @@
 const $ = id => document.getElementById(id);
 const salt = "060602";
 
-
 function loadListContent(){
     fetch("https://pieisyum25.github.io/secret/content.json")
     .then(function (response) {
