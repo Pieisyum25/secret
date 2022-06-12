@@ -5,29 +5,43 @@
         <title>Secret</title>
         <meta charset="utf-8">
         <script src="app.js"></script>
+        <link rel="stylesheet" href="styles.css">
     </head>
 
     <body onload="loadListContent()">
         <div id="login">
-            <h1 id="login-header">USER LOGIN</h1>
+            <div id="login-screen">
+                <h1 id="login-header">USER LOGIN</h1>
 
-            <form id="login-form" onsubmit="validateLogin(event)">
+                <form id="login-form" onsubmit="validateLogin(event)">
 
-                <p id="login-error"></p>
-                
-                <h3>Username:</h3>
-                <input type="text" name="username" id="username" required />
-                
-                <h3>Password:</h3>
-                <input type="password" name="password" id="password" required />
+                    <div class="login-field">
+                        <p id="login-error"></p>
+                    </div>
+                    
+                    <div class="login-field">
+                        <h3>Username:</h3>
+                        <input type="text" name="username" id="username" required />
+                    </div>
+                    
+                    <div class="login-field">
+                        <h3>Password:</h3>
+                        <input type="password" name="password" id="password" required />
+                    </div>
 
-                <button type="submit" id="login-button">LOGIN</button>
-            </form>
+                    <div class="login-field">
+                        <button type="submit" id="login-button">LOGIN</button>
+                    </div>
+                    
+                </form>
+            </div>
         </div>
 
         <div id="list" hidden>
-            <h1 id="list-header"></h1>
-            <ol id="list-content"></ol>
+            <div id="list-screen">
+                <h1 id="list-header"></h1>
+                <ol id="list-content"></ol>
+            </div>
         </div>
     </body>
 
