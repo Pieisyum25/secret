@@ -81,6 +81,7 @@ input:focus {
 #list {
     margin: 20px auto;
     width: 1000px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 #list-screen {
@@ -93,4 +94,29 @@ input:focus {
     text-align: center;
     color: #777;
     margin-bottom: 60px;
+}
+
+#list-content {
+    counter-reset: index;
+    font-size: 15px;
+}
+
+.list-item {
+    counter-increment: index;
+    display: flex;
+    padding: 2px 0;
+    box-sizing: border-box;
+}
+
+.list-item::before {
+    content: counters(index, ".") ".";
+    font-weight: bold;
+    min-width: 30px;
+    padding-right: 15px;
+    text-align: right;
+    background-image: linear-gradient(to bottom, rgb(219, 127, 255), rgb(255, 0, 0));
+    background-attachment: fixed;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
