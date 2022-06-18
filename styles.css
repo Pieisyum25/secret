@@ -8,8 +8,12 @@
 
 body {
     font-family: Arial;
-    background-color: #ffd0fd;
+    background-image: linear-gradient(#ffd0fd 50%, #ff91fa 100%);
     padding: 50px;
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 #login {
